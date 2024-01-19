@@ -13,10 +13,10 @@ Welcome to the Band/Music Name Generator! This Streamlit app helps musicians and
 
 To run this app locally, you'll need to have Python and Streamlit installed. Follow these steps:
 
-1. Clone the repository: git clone https://github.com/sorgie19/langchang-llm-app.git
-2. Navigate to the app's directory: cd langchang-llm-app
-3. Install the requirements: pip install -r requirements.txt
-4. Run the app: streamlit run main.py
+1. Clone the repository: ```bash git clone https://github.com/sorgie19/langchang-llm-app.git
+2. Navigate to the app's directory: ```bash cd langchang-llm-app
+3. Install the requirements: ```bash pip install -r requirements.txt
+4. Run the app: streamlit ```bash streamlit run main.py
 
 ## Usage
 
