@@ -32,10 +32,24 @@ user_sub_genre = None
 
 # Only display the subgenre selection if a main genre is selected
 if user_main_genre:
-    user_sub_genre = st.sidebar.selectbox(f"What sub genre of {user_main_genre} do you make?", sub_genres[user_main_genre])
-    if user_sub_genre == "Other":
-        user_sub_genre = st.sidebar.text_input("Please type in your sub-genre")
+    # Add an empty default option to the subgenre selection
+    user_sub_genre = st.sidebar.selectbox(f"What sub genre of {user_main_genre} do you make?", [""] + list(sub_genres[user_main_genre]))
+    
+    # Only proceed if a subgenre has been selected
+    if user_sub_genre:
+        if user_sub_genre == "Other":
+            user_sub_genre = st.sidebar.text_input("Please type in your sub-genre")
 
-    if st.sidebar.button('Generate'):
-        response = lch.generate_band_names(user_main_genre, user_sub_genre)
-        st.text(response['band_name'])
+        # Add a field to specify the amount of names to generate after a subgenre has been selected
+        amount_of_names = st.sidebar.number_input("How many names would you like to generate?", min_value=1, max_value=35, value=10, step=1)
+
+        # Only display the OpenAI key input after the amount of names has been selected (which is always the case since it has a default value)
+        openai_key = st.sidebar.text_input("Enter your OpenAI key") if amount_of_names else None
+
+        # Only display the generate button if an OpenAI key has been entered
+        if openai_key:
+            if st.sidebar.button('Generate'):
+                # Pass the amount_of_names to the generate_band_names function
+                response = lch.generate_band_names(user_main_genre, user_sub_genre, openai_key, amount_of_names)
+                # Assuming the response returns a list of names, iterate and display them
+                st.text(response['band_names'])
